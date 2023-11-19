@@ -6,5 +6,8 @@
     "packages": [
       "packages/**"
     ]
+  },
+  "repository": {
+    "url": "https://github.com/yungblud/mini-commercial"
   }
 }
