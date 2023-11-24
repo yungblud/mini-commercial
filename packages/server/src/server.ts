@@ -26,16 +26,19 @@ fastify.route({
       },
     },
   },
-  // this function is executed for every request before the handler is executed
   preHandler: async (request, reply) => {
     // E.g. check authentication
   },
   handler: async (request, reply) => ({ hello: 'world' }),
 })
 
-try {
-  await fastify.listen({ port: 3000 })
-} catch (err) {
-  fastify.log.error(err)
-  process.exit(1)
+async function main() {
+  try {
+    await fastify.listen({ port: 3000 })
+  } catch (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
 }
+
+main()
