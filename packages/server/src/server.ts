@@ -4,7 +4,10 @@ import path from 'path'
 import nconf from 'nconf'
 
 const fastify = Fastify({
-  logger: true,
+  ignoreTrailingSlash: true,
+  logger: {
+    level: 'info',
+  },
 })
 
 async function loadSettings() {
