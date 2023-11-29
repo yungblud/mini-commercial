@@ -33,6 +33,7 @@ async function main() {
       },
     })
     await fastify.listen({ port: nconf.get('port') })
+    fastify.log.info('server started')
   } catch (err) {
     fastify.log.error(err)
     process.exit(1)
