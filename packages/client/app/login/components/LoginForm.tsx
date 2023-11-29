@@ -1,13 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import Input from '@/components/Input'
 
+interface Inputs {
+  email: string
+  password: string
+}
+
 export default function LoginForm() {
-  const [emailText, setEmailText] = useState('')
+  const { handleSubmit, register, watch } = useForm<Inputs>()
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+  console.log(watch('email'))
   return (
-    <form>
-      <Input value={emailText} onChange={(e) => setEmailText(e.target.value)} />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Input {...register('email')} />
+      <Input {...register('password')} />
     </form>
   )
 }

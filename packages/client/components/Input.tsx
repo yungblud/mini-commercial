@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { DetailedHTMLProps, InputHTMLAttributes } from 'react'
+import { DetailedHTMLProps, InputHTMLAttributes, forwardRef } from 'react'
 
 export interface InputProps
   extends DetailedHTMLProps<
@@ -7,6 +7,8 @@ export interface InputProps
     HTMLInputElement
   > {}
 
-export default function Input(props: InputProps) {
-  return <input {...props} />
-}
+const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => (
+  <input {...props} ref={ref} />
+))
+
+export default Input
