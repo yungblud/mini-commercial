@@ -2,6 +2,7 @@
 
 import { Global, css } from '@emotion/react'
 import emotionReset from 'emotion-reset'
+import palettes from '@/libs/palettes'
 
 export default function GlobalStyle() {
   return (
@@ -10,7 +11,7 @@ export default function GlobalStyle() {
         ${emotionReset}
 
         body {
-          background-color: #f5f5f7;
+          background-color: ${palettes.background1};
         }
 
         a {

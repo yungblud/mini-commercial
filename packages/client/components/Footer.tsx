@@ -1,13 +1,14 @@
 'use client'
 
 import styled from '@emotion/styled'
+import palettes from '@/libs/palettes'
 
 const Container = styled.div`
   width: 100%;
   height: 15rem;
-  background-color: #ffffff;
+  background-color: ${palettes.white};
   padding: 1rem;
-  border-top: 1px solid #eaeaec;
+  border-top: 1px solid ${palettes.borderPrimary};
 `
 
 export default function Footer() {
