@@ -3,6 +3,7 @@
 import styled from '@emotion/styled'
 import Link from 'next/link'
 import palettes from '@/libs/palettes'
+import Button from './Button'
 
 const Container = styled.div`
   width: 100%;
@@ -22,15 +23,6 @@ const LoginButtonWrapper = styled(Link)`
   margin-left: auto;
 `
 
-const LoginButton = styled.button`
-  border-radius: 14px;
-  padding: 0.5rem;
-  border: none;
-  font-size: 14px;
-  background-color: ${palettes.white};
-  border: 1px solid ${palettes.borderPrimary};
-`
-
 export default function Header() {
   return (
     <Container>
@@ -38,7 +30,7 @@ export default function Header() {
         <CompanyLogo>ColdSurf Store</CompanyLogo>
       </Link>
       <LoginButtonWrapper href="/login">
-        <LoginButton>Log In</LoginButton>
+        <Button>Log In</Button>
       </LoginButtonWrapper>
     </Container>
   )
