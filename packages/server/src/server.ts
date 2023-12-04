@@ -2,6 +2,7 @@ import Fastify from 'fastify'
 import AutoLoad from '@fastify/autoload'
 import path from 'path'
 import nconf from 'nconf'
+import jwt from '@fastify/jwt'
 
 const fastify = Fastify({
   ignoreTrailingSlash: true,
@@ -31,6 +32,9 @@ async function main() {
       options: {
         prefix: '/api/v1',
       },
+    })
+    await fastify.register(jwt, {
+      secret: nconf.get('secrets.jwt'),
     })
     await fastify.listen({ port: nconf.get('port') })
     fastify.log.info('server started')
