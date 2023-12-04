@@ -9,7 +9,18 @@ export default function GlobalStyle() {
       styles={css`
         ${emotionReset}
 
-        *, *::after, *::before {
+        body {
+          background-color: #f5f5f7;
+        }
+
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
+
+        *,
+        *::after,
+        *::before {
           box-sizing: border-box;
           -moz-osx-font-smoothing: grayscale;
           -webkit-font-smoothing: antialiased;
