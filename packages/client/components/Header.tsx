@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import Link from 'next/link'
 import palettes from '@/libs/palettes'
 import Button from './Button'
+import { useLoginModalStore } from './LoginModal'
 
 const Container = styled.div`
   width: 100%;
@@ -24,13 +25,14 @@ const LoginButtonWrapper = styled(Link)`
 `
 
 export default function Header() {
+  const { open } = useLoginModalStore()
   return (
     <Container>
       <Link href="/">
         <CompanyLogo>ColdSurf Store</CompanyLogo>
       </Link>
       <LoginButtonWrapper href="/login">
-        <Button>Log In</Button>
+        <Button onClick={open}>Log In</Button>
       </LoginButtonWrapper>
     </Container>
   )

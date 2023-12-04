@@ -4,7 +4,7 @@ import { PropsWithChildren } from 'react'
 import styled from '@emotion/styled'
 import Header from './Header'
 import Footer from './Footer'
-import Modal from './Modal'
+import LoginModal from './LoginModal'
 
 const Container = styled.div`
   display: flex;
@@ -16,19 +16,13 @@ const ChildrenWrapper = styled.div`
   flex: 1;
 `
 
-const CustomModal = styled(Modal.Container)`
-  width: 350px;
-`
-
 export default function LayoutWrapper({ children }: PropsWithChildren<{}>) {
   return (
     <Container>
       <Header />
       <ChildrenWrapper>{children}</ChildrenWrapper>
       <Footer />
-      <Modal.Background>
-        <CustomModal>Hello</CustomModal>
-      </Modal.Background>
+      <LoginModal />
     </Container>
   )
 }

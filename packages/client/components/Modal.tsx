@@ -1,5 +1,6 @@
+/* eslint-disable no-undef */
 import styled from '@emotion/styled'
-import { PropsWithChildren } from 'react'
+import { MouseEventHandler, PropsWithChildren, forwardRef } from 'react'
 import palettes from '@/libs/palettes'
 
 const ModalBackground = styled.div`
@@ -24,11 +25,21 @@ const ModalWrapper = styled.div`
 
 const Modal = () => null
 
-Modal.Background = (props: PropsWithChildren<{ className?: string }>) => (
-  <ModalBackground className={props.className}>
+Modal.Background = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<{
+    className?: string
+    onClickBackground?: MouseEventHandler<HTMLDivElement>
+  }>
+>((props, ref) => (
+  <ModalBackground
+    ref={ref}
+    onClick={props.onClickBackground}
+    className={props.className}
+  >
     {props.children}
   </ModalBackground>
-)
+))
 
 Modal.Container = (props: PropsWithChildren<{ className?: string }>) => (
   <ModalWrapper className={props.className}>{props.children}</ModalWrapper>
