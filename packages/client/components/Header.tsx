@@ -20,7 +20,7 @@ const CompanyLogo = styled.h3`
   font-size: 18px;
 `
 
-const LoginButtonWrapper = styled(Link)`
+const LoginButtonWrapper = styled(Button)`
   margin-left: auto;
 `
 
@@ -31,9 +31,7 @@ export default function Header() {
       <Link href="/">
         <CompanyLogo>ColdSurf Store</CompanyLogo>
       </Link>
-      <LoginButtonWrapper href="/login">
-        <Button onClick={open}>Log In</Button>
-      </LoginButtonWrapper>
+      <LoginButtonWrapper onClick={open}>Log In</LoginButtonWrapper>
     </Container>
   )
 }

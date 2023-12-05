@@ -2,6 +2,7 @@
 
 import { PropsWithChildren } from 'react'
 import styled from '@emotion/styled'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import Header from './Header'
 import Footer from './Footer'
 import LoginModal from './LoginModal'
@@ -18,11 +19,15 @@ const ChildrenWrapper = styled.div`
 
 export default function LayoutWrapper({ children }: PropsWithChildren<{}>) {
   return (
-    <Container>
-      <Header />
-      <ChildrenWrapper>{children}</ChildrenWrapper>
-      <Footer />
-      <LoginModal />
-    </Container>
+    <GoogleOAuthProvider
+      clientId={process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID ?? ''}
+    >
+      <Container>
+        <Header />
+        <ChildrenWrapper>{children}</ChildrenWrapper>
+        <Footer />
+        <LoginModal />
+      </Container>
+    </GoogleOAuthProvider>
   )
 }
