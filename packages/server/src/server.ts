@@ -34,7 +34,7 @@ async function main() {
       },
     })
     await fastify.register(jwt, {
-      secret: nconf.get('secrets.jwt'),
+      secret: nconf.get('secrets').jwt,
     })
     await fastify.listen({ port: nconf.get('port') })
     fastify.log.info('server started')
