@@ -1,9 +1,61 @@
 import { RouteHandler } from 'fastify'
+import { OAuth2Client } from 'google-auth-library'
+import User from '../models/User'
+import AuthToken from '../models/AuthToken'
+
+const client = new OAuth2Client()
 
 export const socialSignInCtrl: RouteHandler<{
   Body: {
     social_token: string
+    provider: 'google'
   }
-}> = (req, res) => {
-  const { social_token: socialToken } = req.body
+}> = async (req, res) => {
+  const { social_token: socialToken, provider } = req.body
+  try {
+    if (provider === 'google') {
+      const tokenInfo = await client.getTokenInfo(socialToken)
+      const { email: gmail } = tokenInfo
+      if (!gmail) {
+        throw Error('cannot get gmail')
+      }
+      const user = await User.findByEmail(gmail)
+      if (!user) {
+        return res.status(404).send()
+      }
+      const authToken = new AuthToken({
+        auth_token: await res.jwtSign(
+          {
+            provider,
+            email: user.email,
+            id: user.id,
+          },
+          {
+            expiresIn: '7d',
+          }
+        ),
+        refresh_token: await res.jwtSign(
+          {
+            provider,
+            email: user.email,
+            id: user.id,
+          },
+          {
+            expiresIn: '30d',
+          }
+        ),
+        user_id: user.id,
+      })
+      const { refresh_token, auth_token } = await authToken.create()
+
+      return res.status(200).send({
+        refresh_token,
+        auth_token,
+      })
+    }
+    return res.status(404).send()
+  } catch (e) {
+    console.error(e)
+    return res.status(500).send()
+  }
 }
