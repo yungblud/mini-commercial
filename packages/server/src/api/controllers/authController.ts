@@ -51,6 +51,7 @@ export const socialSignInCtrl: RouteHandler<{
       return res.status(200).send({
         refresh_token,
         auth_token,
+        user,
       })
     }
     return res.status(404).send()
