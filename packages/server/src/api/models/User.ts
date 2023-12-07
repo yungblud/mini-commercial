@@ -30,6 +30,15 @@ export default class User {
     return user
   }
 
+  public async create() {
+    const user = await prisma.user.create({
+      data: {
+        email: this.email,
+      },
+    })
+    return user
+  }
+
   public serialize(): UserSerialized {
     return {
       id: this.id ?? '',

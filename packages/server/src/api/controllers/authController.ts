@@ -19,9 +19,11 @@ export const socialSignInCtrl: RouteHandler<{
       if (!gmail) {
         throw Error('cannot get gmail')
       }
-      const user = await User.findByEmail(gmail)
+      let user = await User.findByEmail(gmail)
       if (!user) {
-        return res.status(404).send()
+        user = await new User({
+          email: gmail,
+        }).create()
       }
       const authToken = new AuthToken({
         auth_token: await res.jwtSign(

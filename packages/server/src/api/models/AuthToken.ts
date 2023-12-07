@@ -33,7 +33,28 @@ export default class AuthToken {
     this.created_at = params.created_at
   }
 
+  public static async getByUserId(userId: string) {
+    // eslint-disable-next-line no-return-await
+    return await prisma.authToken.findUnique({
+      where: {
+        user_id: userId,
+      },
+    })
+  }
+
+  public static async deleteById(id: string) {
+    await prisma.authToken.delete({
+      where: {
+        id,
+      },
+    })
+  }
+
   public async create() {
+    const existing = await AuthToken.getByUserId(this.user_id)
+    if (existing) {
+      await AuthToken.deleteById(existing.id)
+    }
     // eslint-disable-next-line no-return-await
     return await prisma.authToken.create({
       data: {
