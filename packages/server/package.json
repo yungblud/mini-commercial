@@ -2,6 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "license": "MIT",
+  "scripts": {
+    "dev": "npx ts-node ./src/server.ts"
+  },
   "devDependencies": {
     "@types/nconf": "^0.10.6",
     "@types/node": "^20",
@@ -11,8 +14,11 @@
   "dependencies": {
     "@fastify/autoload": "^5.8.0",
     "@fastify/jwt": "^7.2.4",
+    "@prisma/client": "5.6.0",
     "fastify": "^4.24.3",
+    "google-auth-library": "^9.4.1",
     "nconf": "^0.12.1",
+    "uuidv4": "^6.2.13",
     "zod": "^3.22.4"
   }
 }
