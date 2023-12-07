@@ -3,6 +3,7 @@ import AutoLoad from '@fastify/autoload'
 import path from 'path'
 import nconf from 'nconf'
 import jwt from '@fastify/jwt'
+import cors from '@fastify/cors'
 
 const fastify = Fastify({
   ignoreTrailingSlash: true,
@@ -27,6 +28,11 @@ async function loadSettings() {
 async function main() {
   try {
     await loadSettings()
+    await fastify.register(cors, {
+      origin: ['http://localhost:3000'],
+      preflight: true,
+      methods: ['GET', 'POST', 'OPTIONS', 'PATCH', 'PUT', 'DELETE'],
+    })
     await fastify.register(AutoLoad, {
       dir: path.resolve(__dirname, './api/routes'),
       options: {
@@ -36,6 +42,7 @@ async function main() {
     await fastify.register(jwt, {
       secret: nconf.get('secrets').jwt,
     })
+
     await fastify.listen({ port: nconf.get('port') })
     fastify.log.info('server started')
   } catch (err) {

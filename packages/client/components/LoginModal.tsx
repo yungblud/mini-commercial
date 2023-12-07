@@ -9,6 +9,7 @@ import { useGoogleLogin } from '@react-oauth/google'
 import Modal from './Modal'
 import ModalPortal from '@/libs/ModalPortal'
 import Button from './Button'
+import useSignInMutation from '@/mutations/useSignInMutation'
 
 type LoginModalStore = {
   isOpen: boolean
@@ -37,6 +38,11 @@ const ModalTitle = styled.h2`
 `
 
 export default function LoginModal() {
+  const { mutate: mutateSignIn } = useSignInMutation({
+    onSuccess: (data) => {
+      console.log(data)
+    },
+  })
   const { isOpen, close } = useLoginModalStore()
   const modalBackgroundRef = useRef<HTMLDivElement>(null)
   const onClickBackground = useCallback<MouseEventHandler<HTMLDivElement>>(
@@ -49,7 +55,10 @@ export default function LoginModal() {
   )
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => {
-      console.log(tokenResponse)
+      mutateSignIn({
+        provider: 'google',
+        social_token: tokenResponse.access_token,
+      })
       close()
     },
   })
