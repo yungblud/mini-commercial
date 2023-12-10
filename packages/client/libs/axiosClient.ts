@@ -2,7 +2,7 @@
 import Axios from 'axios'
 
 const axiosClient = Axios.create({
-  baseURL: 'http://localhost:8000/api/v1/',
+  baseURL: process.env.BASE_URL,
   timeout: 5000,
 })
 
