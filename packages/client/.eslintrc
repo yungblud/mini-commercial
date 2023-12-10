@@ -3,8 +3,10 @@
       "coldsurfers", // for nodejs-typescript, or 'coldsurfers/nodejs-typescript'
       "coldsurfers/react-typescript" // for react-typescript
     ],
+    "plugins": ["@tanstack/query"],
     "rules": {
       "import/extensions": "off",
-      "import/no-unresolved": "off"
+      "import/no-unresolved": "off",
+      "no-undef": "off"
     }
 }

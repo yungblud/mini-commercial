@@ -5,7 +5,7 @@
 import styled from '@emotion/styled'
 import { create } from 'zustand'
 import { MouseEventHandler, useCallback, useRef } from 'react'
-import { useGoogleLogin } from '@react-oauth/google'
+import { signIn } from 'next-auth/react'
 import Modal from './Modal'
 import ModalPortal from '@/libs/ModalPortal'
 import Button from './Button'
@@ -38,6 +38,7 @@ const ModalTitle = styled.h2`
 
 export default function LoginModal() {
   const { isOpen, close } = useLoginModalStore()
+
   const modalBackgroundRef = useRef<HTMLDivElement>(null)
   const onClickBackground = useCallback<MouseEventHandler<HTMLDivElement>>(
     (e) => {
@@ -47,12 +48,10 @@ export default function LoginModal() {
     },
     []
   )
-  const login = useGoogleLogin({
-    onSuccess: (tokenResponse) => {
-      console.log(tokenResponse)
-      close()
-    },
-  })
+
+  const onClickGoogleLogin = useCallback(async () => {
+    await signIn('google')
+  }, [])
 
   return (
     isOpen && (
@@ -63,7 +62,7 @@ export default function LoginModal() {
         >
           <CustomModal>
             <ModalTitle>ColdSurf Store</ModalTitle>
-            <Button onClick={() => login()}>Google Login</Button>
+            <Button onClick={onClickGoogleLogin}>Google Login</Button>
           </CustomModal>
         </Modal.Background>
       </ModalPortal>

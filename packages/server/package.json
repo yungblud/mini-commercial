@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "npx ts-node ./src/server.ts"
+    "dev": "NODE_ENV=development npx ts-node ./src/server.ts",
+    "start": "NODE_ENV=production node ./dist/server.js",
+    "build": "tsc && cp -R ./src/config ./dist/config"
   },
   "devDependencies": {
     "@types/nconf": "^0.10.6",
@@ -13,6 +15,7 @@
   },
   "dependencies": {
     "@fastify/autoload": "^5.8.0",
+    "@fastify/cors": "^8.4.2",
     "@fastify/jwt": "^7.2.4",
     "@prisma/client": "5.6.0",
     "fastify": "^4.24.3",

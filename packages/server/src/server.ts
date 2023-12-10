@@ -3,6 +3,7 @@ import AutoLoad from '@fastify/autoload'
 import path from 'path'
 import nconf from 'nconf'
 import jwt from '@fastify/jwt'
+import cors from '@fastify/cors'
 
 const fastify = Fastify({
   ignoreTrailingSlash: true,
@@ -27,6 +28,14 @@ async function loadSettings() {
 async function main() {
   try {
     await loadSettings()
+    await fastify.register(cors, {
+      origin:
+        process.env.NODE_ENV === 'development'
+          ? ['http://localhost:3000']
+          : ['https://store.coldsurf.io'],
+      preflight: true,
+      methods: ['GET', 'POST', 'OPTIONS', 'PATCH', 'PUT', 'DELETE'],
+    })
     await fastify.register(AutoLoad, {
       dir: path.resolve(__dirname, './api/routes'),
       options: {
@@ -36,8 +45,9 @@ async function main() {
     await fastify.register(jwt, {
       secret: nconf.get('secrets').jwt,
     })
+
     await fastify.listen({ port: nconf.get('port') })
-    fastify.log.info('server started')
+    fastify.log.info('server started', process.env.NODE_ENV)
   } catch (err) {
     fastify.log.error(err)
     process.exit(1)

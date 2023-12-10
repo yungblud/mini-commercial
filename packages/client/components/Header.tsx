@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled'
 import Link from 'next/link'
+import { signOut, useSession } from 'next-auth/react'
+import { useCallback } from 'react'
 import palettes from '@/libs/palettes'
 import Button from './Button'
 import { useLoginModalStore } from './LoginModal'
@@ -26,12 +28,21 @@ const LoginButtonWrapper = styled(Button)`
 
 export default function Header() {
   const { open } = useLoginModalStore()
+  const { data: session } = useSession()
+  const isLoggedIn = !!session
+  const onClickLogout = useCallback(async () => {
+    await signOut()
+  }, [])
   return (
     <Container>
       <Link href="/">
         <CompanyLogo>ColdSurf Store</CompanyLogo>
       </Link>
-      <LoginButtonWrapper onClick={open}>Log In</LoginButtonWrapper>
+      {isLoggedIn ? (
+        <LoginButtonWrapper onClick={onClickLogout}>Log Out</LoginButtonWrapper>
+      ) : (
+        <LoginButtonWrapper onClick={open}>Log In</LoginButtonWrapper>
+      )}
     </Container>
   )
 }
