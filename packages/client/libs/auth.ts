@@ -153,7 +153,6 @@ export const config = {
         return false
       }
       const { access_token: accessToken, provider } = account
-      // todo: fetch server with access token
       if (provider !== 'google' || !accessToken) {
         return false
       }
