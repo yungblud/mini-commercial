@@ -29,7 +29,10 @@ async function main() {
   try {
     await loadSettings()
     await fastify.register(cors, {
-      origin: ['http://localhost:3000'],
+      origin:
+        process.env.NODE_ENV === 'development'
+          ? ['http://localhost:3000']
+          : ['https://store.coldsurf.io'],
       preflight: true,
       methods: ['GET', 'POST', 'OPTIONS', 'PATCH', 'PUT', 'DELETE'],
     })
@@ -44,7 +47,7 @@ async function main() {
     })
 
     await fastify.listen({ port: nconf.get('port') })
-    fastify.log.info('server started')
+    fastify.log.info('server started', process.env.NODE_ENV)
   } catch (err) {
     fastify.log.error(err)
     process.exit(1)
