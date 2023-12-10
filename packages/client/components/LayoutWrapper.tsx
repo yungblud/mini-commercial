@@ -2,8 +2,9 @@
 
 import { PropsWithChildren } from 'react'
 import styled from '@emotion/styled'
-import { GoogleOAuthProvider } from '@react-oauth/google'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { SessionProvider } from 'next-auth/react'
+import { Session } from 'next-auth/types'
 import Header from './Header'
 import Footer from './Footer'
 import LoginModal from './LoginModal'
@@ -20,11 +21,14 @@ const ChildrenWrapper = styled.div`
 
 export const queryClient = new QueryClient({})
 
-export default function LayoutWrapper({ children }: PropsWithChildren<{}>) {
+export default async function LayoutWrapper({
+  children,
+  session,
+}: PropsWithChildren<{
+  session?: Session | null
+}>) {
   return (
-    <GoogleOAuthProvider
-      clientId={process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID ?? ''}
-    >
+    <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
         <Container>
           <Header />
@@ -33,6 +37,6 @@ export default function LayoutWrapper({ children }: PropsWithChildren<{}>) {
           <LoginModal />
         </Container>
       </QueryClientProvider>
-    </GoogleOAuthProvider>
+    </SessionProvider>
   )
 }
