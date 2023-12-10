@@ -16,6 +16,7 @@
     "axios": "^1.6.2",
     "emotion-reset": "^3.0.1",
     "next": "14.0.3",
+    "next-auth": "beta",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
