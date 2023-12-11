@@ -1,0 +1,30 @@
+name: deploy client production website
+"on":
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+env:
+  NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+  NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+  CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+  CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+  SITE_URL: ${{ secrets.SITE_URL }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          cache: "yarn"
+      - run: yarn install --immutable
+      - run: yarn build
+      - uses: amondnet/vercel-action@v20 #deploy
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          vercel-args: "--prod" #Optional
+          vercel-org-id: ${{ secrets.ORG_ID }} #Required
+          vercel-project-id: ${{ secrets.PROJECT_ID }} #Required
