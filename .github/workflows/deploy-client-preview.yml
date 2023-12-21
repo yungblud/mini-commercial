@@ -25,5 +25,5 @@ jobs:
         working-directory: ./packages/client
       - run: npx vercel build
         working-directory: ./packages/client
-      - run: npx vercel deploy --prebuilt
+      - run: npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN }}
         working-directory: ./packages/client
