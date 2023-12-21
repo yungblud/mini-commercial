@@ -20,6 +20,8 @@ jobs:
       - run: yarn install --immutable
       - run: yarn build
         working-directory: ./packages/server
+      - run: npx vercel pull --yes
+        working-directory: ./packages/server
       - run: npx vercel build
         working-directory: ./packages/server
       - run: npx vercel deploy --prebuilt
