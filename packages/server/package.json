@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "NODE_ENV=development npx ts-node ./src/server.ts",
     "start": "NODE_ENV=production node ./dist/server.js",
-    "build": "tsc && cp -R ./src/config ./dist/config"
+    "build": "tsc && cp -R ./src/config ./dist/config",
+    "deploy": "yarn pm2 start ./dist/server.js"
   },
   "devDependencies": {
     "@types/nconf": "^0.10.6",
