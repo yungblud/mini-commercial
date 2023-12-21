@@ -8,6 +8,7 @@ env:
   GOOGLE_OAUTH_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
   AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
   BASE_URL: ${{ secrets.BASE_URL }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
 jobs:
   deploy:
@@ -20,7 +21,7 @@ jobs:
       - run: yarn install --immutable
       - run: yarn build
         working-directory: ./packages/server
-      - run: npx vercel pull --yes
+      - run: npx vercel pull --yes --token ${{ secrets.VERCEL_TOKEN }}
         working-directory: ./packages/server
       - run: npx vercel build
         working-directory: ./packages/server
