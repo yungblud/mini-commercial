@@ -19,8 +19,5 @@ jobs:
           cache: "yarn"
       - run: yarn install --immutable
       - run: yarn build
-      - uses: amondnet/vercel-action@v20 #deploy
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          vercel-org-id: ${{ secrets.ORG_ID }} #Required
-          vercel-project-id: ${{ secrets.PROJECT_ID }} #Required
+      - run: npx vercel build
+      - run: npx vercel deploy --prebuilt
