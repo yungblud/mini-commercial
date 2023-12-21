@@ -20,10 +20,10 @@ jobs:
           cache: "yarn"
       - run: yarn install --immutable
       - run: yarn build
-        working-directory: ./packages/server
+        working-directory: ./packages/client
       - run: npx vercel pull --yes --token ${{ secrets.VERCEL_TOKEN }}
-        working-directory: ./packages/server
+        working-directory: ./packages/client
       - run: npx vercel build
-        working-directory: ./packages/server
+        working-directory: ./packages/client
       - run: npx vercel deploy --prebuilt
-        working-directory: ./packages/server
+        working-directory: ./packages/client
