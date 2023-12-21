@@ -59,6 +59,6 @@ export const socialSignInCtrl: RouteHandler<{
     return res.status(404).send()
   } catch (e) {
     console.error(e)
-    return res.status(500).send()
+    return res.send(e)
   }
 }
