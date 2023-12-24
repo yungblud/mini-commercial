@@ -11,6 +11,7 @@ env:
   GOOGLE_OAUTH_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
   AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
   BASE_URL: ${{ secrets.BASE_URL }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
 jobs:
   deploy:
@@ -22,9 +23,10 @@ jobs:
           cache: "yarn"
       - run: yarn install --immutable
       - run: yarn build
-      - uses: amondnet/vercel-action@v20 #deploy
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          vercel-args: "--prod" #Optional
-          vercel-org-id: ${{ secrets.ORG_ID }} #Required
-          vercel-project-id: ${{ secrets.PROJECT_ID }} #Required
+        working-directory: ./packages/client
+      - run: npx vercel pull --yes --token ${{ secrets.VERCEL_TOKEN }}
+        working-directory: ./packages/client
+      - run: npx vercel build --prod
+        working-directory: ./packages/client
+      - run: npx vercel deploy --prod --prebuilt --token ${{ secrets.VERCEL_TOKEN }}
+        working-directory: ./packages/client
