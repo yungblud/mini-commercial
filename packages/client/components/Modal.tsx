@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import styled from '@emotion/styled'
 import { MouseEventHandler, PropsWithChildren, forwardRef } from 'react'
-import palettes from '@/libs/palettes'
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -18,7 +17,7 @@ const ModalBackground = styled.div`
 `
 
 const ModalWrapper = styled.div`
-  background-color: ${palettes.white};
+  border: 1px solid #ababab;
   padding: 1rem;
   border-radius: 12px;
 `

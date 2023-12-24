@@ -4,22 +4,18 @@ import styled from '@emotion/styled'
 import Link from 'next/link'
 import { signOut, useSession } from 'next-auth/react'
 import { useCallback } from 'react'
-import palettes from '@/libs/palettes'
 import Button from './Button'
 import { useLoginModalStore } from './LoginModal'
 
 const Container = styled.div`
   width: 100%;
-  background-color: ${palettes.white};
-  border-bottom: 1px solid ${palettes.borderPrimary};
   padding: 1rem;
   display: flex;
   align-items: center;
 `
 
-const CompanyLogo = styled.h3`
+const CompanyLogo = styled.h2`
   font-weight: bold;
-  font-size: 18px;
 `
 
 const LoginButtonWrapper = styled(Button)`
@@ -35,7 +31,13 @@ export default function Header() {
   }, [])
   return (
     <Container>
-      <Link href="/">
+      <Link
+        href="/"
+        style={{
+          textDecoration: 'none',
+          color: 'inherit',
+        }}
+      >
         <CompanyLogo>ColdSurf Store</CompanyLogo>
       </Link>
       {isLoggedIn ? (
