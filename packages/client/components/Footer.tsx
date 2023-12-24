@@ -11,7 +11,7 @@ const Container = styled.div`
 export default function Footer() {
   return (
     <Container>
-      <div>Company</div>
+      <div>&copy; coldsurf</div>
     </Container>
   )
 }
