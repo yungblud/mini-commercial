@@ -1,31 +1,43 @@
 'use client'
 
 import { Global, css } from '@emotion/react'
-import emotionReset from 'emotion-reset'
-import palettes from '@/libs/palettes'
 
 export default function GlobalStyle() {
   return (
     <Global
       styles={css`
-        ${emotionReset}
+        html,
+        body {
+          padding: 0;
+          margin: 0;
+          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+            sans-serif;
+        }
 
         body {
-          background-color: ${palettes.background1};
+          background-color: white;
+          color: black;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          body {
+            background-color: rgb(24, 24, 31);
+            color: rgb(238, 238, 238);
+          }
         }
 
         a {
+          color: #2563eb;
           text-decoration: none;
-          color: inherit;
         }
 
-        *,
-        *::after,
-        *::before {
+        * {
           box-sizing: border-box;
-          -moz-osx-font-smoothing: grayscale;
-          -webkit-font-smoothing: antialiased;
-          font-smoothing: antialiased;
+        }
+
+        h1 {
+          font-weight: 800;
         }
       `}
     />

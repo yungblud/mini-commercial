@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import styled from '@emotion/styled'
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react'
-import palettes from '@/libs/palettes'
 
 export interface ButonProps
   extends DetailedHTMLProps<
@@ -14,8 +13,6 @@ const ButtonBase = styled.button`
   padding: 0.5rem;
   border: none;
   font-size: 14px;
-  background-color: ${palettes.white};
-  border: 1px solid ${palettes.borderPrimary};
   cursor: pointer;
 `
 
