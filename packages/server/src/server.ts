@@ -46,7 +46,7 @@ async function main() {
       secret: nconf.get('secrets').jwt,
     })
 
-    await fastify.listen({ port: nconf.get('port') })
+    await fastify.listen({ port: nconf.get('port'), host: '0.0.0.0' })
     fastify.log.info('server started', process.env.NODE_ENV)
   } catch (err) {
     fastify.log.error(err)

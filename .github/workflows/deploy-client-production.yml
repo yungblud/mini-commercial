@@ -1,0 +1,32 @@
+name: deploy client production website
+"on":
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+env:
+  SITE_URL: ${{ secrets.SITE_URL }}
+  GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+  GOOGLE_OAUTH_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
+  AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+  BASE_URL: ${{ secrets.BASE_URL }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          cache: "yarn"
+      - run: yarn install --immutable
+      - run: yarn build
+        working-directory: ./packages/client
+      - run: npx vercel pull --yes --token ${{ secrets.VERCEL_TOKEN }}
+        working-directory: ./packages/client
+      - run: npx vercel build --prod
+        working-directory: ./packages/client
+      - run: npx vercel deploy --prod --prebuilt --token ${{ secrets.VERCEL_TOKEN }}
+        working-directory: ./packages/client

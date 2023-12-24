@@ -7,3 +7,5 @@ src/config/config.json
 Dockerfile
 
 dist/
+
+docker-compose.yml
